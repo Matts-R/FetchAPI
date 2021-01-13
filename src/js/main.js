@@ -16,13 +16,24 @@ cep.addEventListener("blur", (event) => {
     cache: "default"
   }
 
-  fetch(`https://viacep.com.br/ws/${numeroCep}/json`, options)
-    .then((response) => {
-      response.json()
-        .then(data => {
-          console.log(data);
-          showData(data);
-        });
-    })
-    .catch();
-});
+  fetchCep(numeroCep, options);
+})
+
+//APRIMORANDO O EXEMPLO COM O USO DE ASYNC E AWAIT
+async function fetchCep(cep, options) {
+  const response = await fetch(`https://viacep.com.br/ws/${cep}/json`, options);
+  const cepJson = await response.json();
+
+  showData(cepJson);
+}
+
+//FAZENDO UMA REQUISIÇÃO SEM O USO DE ASYNC E AWAIT
+// fetch(`https://viacexp.com.br/ws/${numeroCep}/json`, options)
+//   .then(response => {
+//     response.json()
+//       .then(data => {
+//         console.log(data);
+//         showData(data);
+//       });
+//   })
+//   .catch((reason) => console.log(reason));
